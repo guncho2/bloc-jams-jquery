@@ -38,5 +38,39 @@ $('button#previous').on('click', function(){
   const previousSong = album.songs[previousSongIndex];
   player.playPause(previousSong);
 });
+//change the song's playback position, event handler that
+// responds to input changes on the time control range input
+$('#time-control input').on('input', function (event) {
+  //player object's .skipTo() method to change the time in the
+  // audio file. .skipTo() accepts a percentage as a
+  //parameter, so we can pass it the value property of
+  // our seek bar, event.target.
+  player.skipTo(event.target.value);
+});
+$('#volume-control input').on('input', function (event) {
+
+  player.setVolume(event.target.value);
+});
+
+// time control's range input update every second so that it
+// reflects the current time of the song
+setInterval( () => {
+  //don't want our setInterval callback function to do anything
+  // if a song isn't currently playing
+  if (player.playState !== 'playing') { return; }
+  //convert the current time into a percentage of the total time
+  // before applying a value to the range input
+  const currentTime = player.getTime();
+  const duration = player.getDuration();
+  const percent = (currentTime / duration) * 100;
+  //update current time'slider inside of the
+  // setInterval callback function
+  $('#time-control .current-time').text( currentTime );
+  //applying a value to the range input
+  $('#time-control input').val(percent);
+
+}, 1000);
+
+
 
 }
