@@ -1,13 +1,15 @@
 class Helper{
 
-  playPauseAndUpdate(){
+  playPauseAndUpdate(song){
 
-player.playPause(song.duration)
+    player.playPause(song);
+
+    if(!song){
+      return;
+    }
 
 
-    if (player.playState !== 'playing') { return; }
-
-    const totalTime = player.song.duration;
+    const totalTime = song.duration;
     $('#time-control .total-time').text( totalTime );
   }
 

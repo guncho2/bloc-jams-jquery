@@ -1,6 +1,6 @@
 {
  $('button#play-pause').on('click', function() {
-   player.playPause();
+   helper.playPauseAndUpdate();
    $(this).attr('playState', player.playState);
  });
 
@@ -22,7 +22,7 @@ $('button#next').on('click', function(){
   const nextSongIndex = currentSongIndex + 1;
   if (nextSongIndex >= album.songs.length) { return; }
   const nextSong = album.songs[nextSongIndex];
-  player.playPause(nextSong);
+  helper.playPauseAndUpdate(nextSong);
   //Next Track button doesn't respond if there
   // is no next song, checks whether the value of
   //nextSongIndex is greater than or equal to the
@@ -36,7 +36,7 @@ $('button#previous').on('click', function(){
   const previousSongIndex = currentSongIndex - 1;
   if (previousSongIndex < album.songs[0]) { return; }
   const previousSong = album.songs[previousSongIndex];
-  player.playPause(previousSong);
+  helper.playPauseAndUpdate(previousSong);
 });
 //change the song's playback position, event handler that
 // responds to input changes on the time control range input
